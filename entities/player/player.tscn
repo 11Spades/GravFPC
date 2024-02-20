@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://bkpiddfgtrnul"]
+
+[ext_resource type="Script" path="res://entities/player/player.gd" id="1_b7am3"]
+[ext_resource type="Shader" path="res://entities/player/crosshair.gdshader" id="2_1xlfd"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hxvkf"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bgqwc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r84cu"]
+shader = ExtResource("2_1xlfd")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cwpai"]
+shader = ExtResource("2_1xlfd")
+
+[sub_resource type="SphereMesh" id="SphereMesh_u7dy1"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_b7am3")
+
+[node name="PlayerCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_hxvkf")
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_bgqwc")
+
+[node name="PlayerCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+fov = 90.0
+
+[node name="PlayerCameraCrosshairContainer" type="TextureRect" parent="PlayerCamera"]
+texture_filter = 2
+material = SubResource("ShaderMaterial_r84cu")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerCameraCrosshair" type="MeshInstance2D" parent="PlayerCamera/PlayerCameraCrosshairContainer"]
+material = SubResource("ShaderMaterial_cwpai")
+position = Vector2(3, 3)
+scale = Vector2(5, 5)
+mesh = SubResource("SphereMesh_u7dy1")
+
+[node name="DebugWeaponLabel" type="Label" parent="PlayerCamera"]
+offset_left = 32.0
+offset_top = 38.0
+offset_right = 205.0
+offset_bottom = 88.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 28
+text = "Weapon: 0"

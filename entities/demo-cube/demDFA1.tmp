@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dej383v8ulgvq"]
+
+[ext_resource type="Script" path="res://entities/demo-cube/demo_cube.gd" id="1_trqr3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h2j0i"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_m4jnd"]
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_y4kjj"]
+
+[node name="DemoCube" type="RigidBody3D"]
+script = ExtResource("1_trqr3")
+
+[node name="DemoCubeCollider" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_h2j0i")
+metadata/_edit_lock_ = true
+
+[node name="DemoCubeMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_m4jnd")
+metadata/_edit_lock_ = true
+
+[node name="DemoCubeGravityIndicator" type="MeshInstance3D" parent="."]
+top_level = true
+mesh = SubResource("ImmediateMesh_y4kjj")
